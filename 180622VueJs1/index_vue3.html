@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vue入门(Vue实例中的数据,事件和方法)</title>
+	<script type="text/javascript" src="./js/vue.js"></script>
+</head>
+<body>属性绑定和双向数据绑定
+	<!-- Vue实例中的数据,事件和方法-->
+	<div id="root">
+			<h1>hello {{msg}}</h1>
+			<!--使用 v-html 指令用于输出 html 代码：-->
+			<!---v-text:会进行转义，v-html：不会进行转义 -->
+			<h1 v-text="number"></h1>
+			<h1 v-text="content"></h1>
+			<h1 v-html="content"></h1>
+			<!-- v-on 给元素绑定事件，事件监听可以使用 v-on 指令：
+				 v-on 简写 为 "@"
+			 -->
+			<div v-on:click="handleClick">{{content}}</div>
+			<div @click="handleClick">{{content}}</div>
+	</div>
+
+
+	<script type="text/javascript">
+
+		new Vue({
+			el: "#root",
+			data: {
+				msg: "World",
+				number: 123,
+				content: "hello Vue.js"	
+			},
+			methods : {
+				handleClick :function (){
+						alert(123)
+						this.content = "Vue入门"
+				}
+
+			}
+		})
+
+	</script>
+</body>
+</html>
