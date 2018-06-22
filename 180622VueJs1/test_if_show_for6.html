@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>v-if, v-show与v-for指令</title>
+	<script type="text/javascript" src="./js/vue.js"></script>
+
+</head>
+<body>
+	<div id="root">
+	<!--直接将属性标签移除掉-->
+			<!--<div v-if="show">hello World</div>-->
+	<!--将属性标签设置为隐藏，display:none-->
+			<div v-show="show">hello World</div>
+			<button @click="handlerClick" > toggle</button>
+			<ol>
+				<li v-for="(item,index) of list " :key="index">{{item}}</li>
+			</ol>
+
+	</div>
+
+	<script type="text/javascript">
+			new Vue({
+				el: "#root",
+				data: {
+					show: true,
+					list: ["A","B","C"]
+				},
+				methods: {
+					handlerClick : function(){
+						this.show = !this.show
+					}
+				}		
+
+			})
+	</script>
+</body>
+</html>
