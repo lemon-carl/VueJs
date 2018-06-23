@@ -10,23 +10,65 @@
 			<input v-model="inputValue"/>
 			<button @click="handleSubmit">提交</button>
 			<ol>
-				<li v-for="(item, index) of list " :key="index">
-					{{item}}
-				</li>
+			   <!-- item 循环每一项的内容，循环的下标 0开头 -->
+				<!-- <li v-for="(item, index) of list " :key="index">{{item}}</li> -->
+				<!-- 父组件通过属性的形式向子组件传递参数 :content="" , :index="" -->
+				<todo-item v-for="(item , index) of list" 
+				           :key="index" 
+				           :content="item" 
+				           :index="index"
+				           @delete='handleDelete'>
+				</todo-item>
 			</ol>
 	</div>
 
 	<script type="text/javascript">
+
+			//注意：每个组件也是Vue的一个实例
+			//任何一个Vue项目是由千千万万个Vue实例组成的
+			//全局组件
+			//此处是子组件
+			Vue.component('todo-item',{
+				//组件'todo-item' 接收从外部传递进来的名字叫‘content’的属性
+			    props : ['content','index'],
+				template : '<li @click="handleClick">{{content}} : {{index}}</li>',
+				methods : {
+					handleClick : function(){
+						// alert(this.content + ' : ' + this.index)
+						// 子组件通过发布订阅模式同父组件交互,发布一个delete事件，父组件订阅
+						this.$emit('delete',this.index)
+					}
+				}
+			})
+			
+			//局部组件
+			/*var TodoItem = {
+				template : '<li>item</li>'
+			}
+           */
+           //此处是父组件
 			new Vue({
 				el: "#root",
+				//局部组件绑定
+				// components : {
+				// 	'todo-item' : TodoItem
+				// },
+				// 如果不定义模版，会去找到挂载点，把挂载点root下的所有内容dom标签，当做这个实例的模版来使用
+				//template: '' ,
 				data: {
 					inputValue : "Hello World",
 					list : []
 				},
 				methods :{
 					handleSubmit :function(){
+						// 添加一个数组
 						this.list.push(this.inputValue)
 						this.inputValue = ''
+					},
+					handleDelete : function(index){
+						// alert(index)
+						// 删除一个数组
+						this.list.splice(index,1)
 					}
 				}
 			}) 
