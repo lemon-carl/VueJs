@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件绑定</title>
+    <script type="text/javascript" src="js/vue.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <div id="app">
+            <button v-on:click="counter += 1">Add 1</button>
+            <p>The button above has been clicked {{ counter }} times.</p>
+            <button v-on:dblclick="greet('abc',$event)">Greet</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                counter: 0,
+                name: 'vue'
+            },
+            methods: {
+                greet: function(str, e){
+                    alert(str);
+                    console.log(e);
+                }
+            }
+
+        });
+
+    </script>
+    <style type="text/css">
+
+    </style>
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单输入绑定</title>
+    <script type="text/javascript" src="js/vue.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!--文本-->
+        <input v-model="message" placeholder="edit me">
+        <p>Message is: {{ message }}</p><br>
+
+        <!--多行文本-->
+        <textarea v-model="message2" placeholder="add multiple lines"></textarea><br>
+        <span>Multiline message2 is:</span>
+        <p style="white-space: pre-line;">{{ message2 }}</p><br>
+        
+        <!--单个复选框-->
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{ checked }}</label></br>
+
+        <!--多个复选框-->
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+        <label for="jack">Jack</label>
+        <input type="checkbox" id="john" value="John" v-model="checkedNames">
+        <label for="john">John</label>
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+        <label for="mike">Mike</label>
+        <br>
+        <span>Checked names: {{ checkedNames }}</span></br>
+
+        <!--单选按钮-->
+        <div id="example-4">
+            <input type="radio" id="one" value="One" v-model="picked">
+            <label for="one">One</label>
+            <br>
+            <input type="radio" id="two" value="Two" v-model="picked">
+            <label for="two">Two</label>
+            <br>
+            <span>Picked: {{ picked }}</span>
+        </div>
+        </br>
+
+        <!--选择框 单选时：-->
+        <!-- <div id="example-5">
+            <select v-model="selected">
+              <option disabled value="">请选择</option>
+              <option>A</option>
+              <option>B</option>
+              <option>C</option>
+            </select>
+            <span>Selected: {{ selected }}</span>
+          </div><br> -->
+          <!--多选时 (绑定到一个数组)：-->
+          <div id="example-6">
+            <select v-model="selected" multiple style="width: 50px;">
+              <option>A</option>
+              <option>B</option>
+              <option>C</option>
+            </select>
+            <br>
+            <span>Selected: {{ selected }}</span>
+          </div>
+          <button type="button" @click="submit">提交</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                message: "",
+                message2: "",
+                checked:true,
+                checkedNames: ['Mike'],
+                picked: "Two",
+                //selected: '',
+                selected: []
+            },
+            methods: {
+                submit: function(){
+                    console.log(this.message);
+                    var  postObj = {
+                        msg1: this.message,
+                        msg2: this.message2,
+                        check: this.checked,
+                        checkval: this.checkedNames,
+                        pick: this.picked,
+                        select: this.selected
+                    };
+                    console.log(postObj);
+                }
+            }
+
+        });
+
+    </script>
+    <style type="text/css">
+
+    </style>
+</body>
+
+</html>
