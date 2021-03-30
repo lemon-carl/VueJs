@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-for指令</title>
+     <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+     <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="添加" @click="add">
+        <input type="button" value="删除" @click="remove">
+        <ul>
+            <li v-for="(item,index) in arr">
+               {{index + 1}} 在哪上班:{{item}}
+            </li>
+        </ul>
+        <ol>
+            吃啥?...
+            <li v-for="obj in vegetables" v-bind:title="obj.name">
+                <h2> {{obj.name}}</h2>
+            </li>
+        </ol>
+    </div>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data:{
+                arr:["北京","上海","广州","深圳"],
+                vegetables:[
+                    {name:"西红柿炒蛋"},
+                    {name:"辣椒炒蛋"},
+                    {name:"黄瓜炒蛋"}
+                ]
+            },
+            methods:{
+                add: function(){
+                    this.vegetables.push({name:"韭菜炒蛋"})
+                },
+                remove:function(){
+                    this.vegetables.shift();
+                }
+            }
+        })
+    </script>
+</body>
+</html>
