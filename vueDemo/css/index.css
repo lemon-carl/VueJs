@@ -1,0 +1,19 @@
+.input-num{
+    text-align: center;
+    width: 50%;
+    height: 50%;
+    padding: 15px 32px;
+    margin-top: 200px;
+    margin-left: 300px;
+    background:darkgray;
+}
+button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
