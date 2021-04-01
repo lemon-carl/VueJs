@@ -25,7 +25,7 @@ var app = new Vue({
             axios.get("http://wthrcdn.etouch.cn/weather_mini?city=" + this.city).then(
                 function (response) {
                     // console.log(response);
-                    console.log(response.data.data.forecast);
+                   // console.log(response.data.data.forecast);
                     that.weaterList = response.data.data.forecast;
                 }, function (error) {
                     console.log(error);
