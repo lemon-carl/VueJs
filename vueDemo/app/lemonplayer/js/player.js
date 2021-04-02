@@ -34,14 +34,14 @@ var app = new Vue({
       });
 
       // 清空搜索
-      // this.query = ''
+       this.query = ''
     },
     // 播放歌曲
     playMusic(musicId) {
       // 获取歌曲url
       axios.get('/song/url?id=' + musicId).then(response => {
         // 保存歌曲url地址
-        this.musicUrl = response.data.data[0].url
+        this.musicUrl = response.data.data[0].url;
       });
 
 
@@ -85,7 +85,8 @@ var app = new Vue({
     //关闭mv界面
     closeMv() {
       this.showVideo = false;
-      this.$refs.video.pause;
+      // 暂停mv播放
+      this.$refs.video.pause();
     },
     // 搜索历史记录中的歌曲
     historySearch(history) {
