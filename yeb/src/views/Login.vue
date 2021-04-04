@@ -1,7 +1,14 @@
 <!--  -->
 <template>
   <div>
-      <el-form :rules="rules" ref="loginForm" :model="loginForm" class="loginContainer">
+      <el-form :rules="rules"
+                v-loading="loading"
+                element-loading-text="正在登录...."
+                element-loading-spinner="el-icon-loading"
+                element-loading-background="rgba(0, 0, 0, 0.8)" 
+                ref="loginForm" 
+                :model="loginForm" 
+                class="loginContainer">
           <h3 class="loginTitle">系统登录</h3>
           <el-form-item prop="username">
               <el-input type="text" v-model="loginForm.username" placeholder="请输入用户名"></el-input>
@@ -12,7 +19,7 @@
           <el-form-item prop="code">
               <el-input type="text" auto-complete="false" v-model="loginForm.code" 
                         placeholder="点击图片更换验证码" style="width:250px; margin-right: 5px"></el-input>
-              <img :src="captchaUrl">
+              <img :src="captchaUrl" @click="updateCaptcha">
           </el-form-item>
           <el-checkbox v-model="checked" class="loginRemember">记住我</el-checkbox>
           <el-button type="primary" style="width: 100%" @click="submitLogin">登录</el-button>
@@ -21,16 +28,18 @@
 </template>
 
 <script>
+
 export default {
     name: "Login",
     data(){
         return{
-            captchaUrl:'',
+            captchaUrl:'/verifyCode?time=' +　new Date(),
             loginForm:{
                 username:'admin',
                 password:'123',
                 code:''
             },
+            loading: false,
             checked: true,
             rules:{
                 username: [{required: true, message:'请输入用户名', trigger: 'blur'}],
@@ -42,10 +51,38 @@ export default {
         }
     },
     methods:{
+        updateCaptcha(){
+            this.captchaUrl = '/verifyCode?time=' + new Date();
+        },
         submitLogin(){
            this.$refs.loginForm.validate((valid) => {
           if (valid) {
-            alert('submit!');
+            // this.loading = true
+            // this.postRequest('/login',this.loginForm).then(resp => {
+            //      //alert(resp);
+            //      if(resp){
+            //          this.loading = false;
+            //          // 存储用户 token
+            //          const tokenStr = resp.obj.toKenHead+resp.obj.token;
+            //          window.sessionStorage.setItem("tokenStr",tokenStr);
+            //          // 跳转首页
+            //          this.$router.replace("/home");
+            //      }
+            //  })
+                    this.loading = true;
+                        this.postRequest('/doLogin', this.loginForm).then(resp => {
+                            this.loading = false;
+                            if (resp) {
+                                //this.$store.commit('INIT_CURRENTHR', resp.obj);
+                                 const user = resp.obj.toKenHead+resp.obj.token;
+                                window.sessionStorage.setItem("user", user);
+                               // let path = this.$route.query.redirect;
+                                //this.$router.replace((path == '/' || path == undefined) ? '/home' : path);
+                                 this.$router.replace("/home");
+                            }else{
+                                this.vcUrl = '/verifyCode?time='+new Date();
+                            }
+                        })
           } else {
            this.$message.error('请输入所有字段！');
             return false;
@@ -73,5 +110,9 @@ export default {
     .loginRemember{
         text-align: left;
         margin: 0 0 25px 0px;
+    }
+    .el-form-item__content{
+        display: flex;
+        align-items: center;
     }
 </style>
