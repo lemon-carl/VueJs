@@ -1,4 +1,4 @@
-<!--  -->
+<!-- 登录页面模板 -->
 <template>
   <div>
       <el-form :rules="rules"
