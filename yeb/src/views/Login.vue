@@ -33,7 +33,8 @@ export default {
     name: "Login",
     data(){
         return{
-            captchaUrl:'/verifyCode?time=' +　new Date(),
+            //captchaUrl:'/verifyCode?time=' +　new Date(),
+            captchaUrl:'/captcha?time=' +　new Date(),
             loginForm:{
                 username:'admin',
                 password:'123',
@@ -52,42 +53,45 @@ export default {
     },
     methods:{
         updateCaptcha(){
-            this.captchaUrl = '/verifyCode?time=' + new Date();
+           // this.captchaUrl = '/verifyCode?time=' + new Date();
+            this.captchaUrl = '/captcha?time=' + new Date();
         },
         submitLogin(){
            this.$refs.loginForm.validate((valid) => {
-          if (valid) {
-            // this.loading = true
-            // this.postRequest('/login',this.loginForm).then(resp => {
-            //      //alert(resp);
-            //      if(resp){
-            //          this.loading = false;
-            //          // 存储用户 token
-            //          const tokenStr = resp.obj.toKenHead+resp.obj.token;
-            //          window.sessionStorage.setItem("tokenStr",tokenStr);
-            //          // 跳转首页
-            //          this.$router.replace("/home");
-            //      }
-            //  })
-                    this.loading = true;
-                        this.postRequest('/doLogin', this.loginForm).then(resp => {
-                            this.loading = false;
-                            if (resp) {
-                                //this.$store.commit('INIT_CURRENTHR', resp.obj);
-                                 const user = resp.obj.toKenHead+resp.obj.token;
-                                window.sessionStorage.setItem("user", user);
-                               // let path = this.$route.query.redirect;
-                                //this.$router.replace((path == '/' || path == undefined) ? '/home' : path);
-                                 this.$router.replace("/home");
-                            }else{
-                                this.vcUrl = '/verifyCode?time='+new Date();
-                            }
-                        })
-          } else {
-           this.$message.error('请输入所有字段！');
-            return false;
-          }
-        });
+           if (valid) {
+                this.loading = true;
+                this.postRequest('/login',this.loginForm).then(resp => {
+                    //alert(resp);
+                    if(resp){
+                        this.loading = false;
+                         // 存储用户 token
+                        const tokenStr = resp.obj.toKenHead+resp.obj.token;
+                        window.sessionStorage.setItem("tokenStr",tokenStr);
+                        // 跳转首页
+                        this.$router.replace("/home");
+                    } else {
+                         this.loading = false;
+                    }
+                 })
+                    // this.loading = true;
+                    //     this.postRequest('/doLogin', this.loginForm).then(resp => {
+                    //         this.loading = false;
+                    //         if (resp) {
+                    //             //this.$store.commit('INIT_CURRENTHR', resp.obj);
+                    //              const user = resp.obj.toKenHead+resp.obj.token;
+                    //             window.sessionStorage.setItem("user", user);
+                    //            // let path = this.$route.query.redirect;
+                    //             //this.$router.replace((path == '/' || path == undefined) ? '/home' : path);
+                    //              this.$router.replace("/home");
+                    //         }else{
+                    //             this.vcUrl = '/verifyCode?time='+new Date();
+                    //         }
+                    //     })
+            } else {
+                this.$message.error('请输入所有字段！');
+                return false;
+            }
+            });
         }
     }
 }

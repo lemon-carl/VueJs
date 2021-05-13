@@ -5,12 +5,12 @@ import router from '../router';
 // 请求拦截器
 axios.interceptors.request.use(config =>{
     //如果存在token，请求携带这个token
-    // if(window.sessionStorage.getItem("tokenStr")){
-    //     config.headers['Authorization'] = window.sessionStorage.getItem("tokenStr");
-    // }
-    if(window.sessionStorage.getItem("user")){
-        config.headers['Authorization'] = window.sessionStorage.getItem("user");
+    if(window.sessionStorage.getItem("tokenStr")){
+        config.headers['Authorization'] = window.sessionStorage.getItem("tokenStr");
     }
+    // if(window.sessionStorage.getItem("user")){
+    //     config.headers['Authorization'] = window.sessionStorage.getItem("user");
+    // }
     return config;
 }, error =>{
     console.log(error);
@@ -21,12 +21,12 @@ axios.interceptors.response.use(success => {
     // 业务逻辑错误
     if (success.status && success.status == 200) {
         if (success.data.code == 500 || success.data.code == 401 || success.data.code == 403) {
-            Message.error({ message: success.data.msg });
-            return
+            Message.error({ message: success.data.message });
+            return;
         }
         // 返回成功数据
-        if (success.data.msg) {
-            Message.success({ message: success.data.msg });
+        if (success.data.message) {
+            Message.success({ message: success.data.message });
         }
     }
 
@@ -40,12 +40,11 @@ axios.interceptors.response.use(success => {
         Message.error({message: '尚未登录，请登录！'});
         router.replace('/');
     } else {
-        if(error.response.data.msg) {
-            Message.error({message: error.response.data.msg});
+        if(error.response.data.message) {
+            Message.error({message: error.response.data.message});
         } else {
-            Message.error({message: '未知错误！'})
+            Message.error({message: '未知错误！'});
         }
-    
     }
     return;
 })
