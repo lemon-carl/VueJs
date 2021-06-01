@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Message } from 'element-ui';
+import {Message} from 'element-ui';
 import router from '../router';
 
 // 请求拦截器
@@ -29,7 +29,6 @@ axios.interceptors.response.use(success => {
             Message.success({ message: success.data.message });
         }
     }
-
     return success.data;
 }, error => {
     if (error.response.code == 504 || error.response.code == 404){
