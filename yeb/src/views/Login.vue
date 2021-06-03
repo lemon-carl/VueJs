@@ -62,13 +62,14 @@ export default {
                 this.loading = true;
                 this.postRequest('/login',this.loginForm).then(resp=>{
                      this.loading = false;
-                     //alert(JSON.stringify(resp));
                     if(resp){  
                         // 存储用户 token
                         const tokenStr = resp.obj.tokenHead+resp.obj.token;
                         window.sessionStorage.setItem("tokenStr",tokenStr);
                         // 跳转首页
-                        this.$router.replace("/home");
+                        // this.$router.replace("/home");
+                        let path = this.$route.query.redirect;
+                        this.$router.replace((path == '/' || path == undefined) ? '/home': path);    
                     }
         
                 })
