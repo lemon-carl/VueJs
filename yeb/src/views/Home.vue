@@ -21,20 +21,15 @@
               :index="index + ''"
               v-for="(item, index) in routes"
               :key="index"
-              v-if="!item.hidden"
-            >
+              v-if="!item.hidden">
               <template slot="title">
-                <i
-                  :class="item.iconCls"
-                  style="color: #1accff; margin-right: 5px"
-                ></i>
+                <i :class="item.iconCls" style="color: #1accff; margin-right: 5px" ></i>
                 <span>{{ item.name }}</span>
               </template>
               <el-menu-item
                 :index="children.path"
                 v-for="(children, indexj) in item.children"
-                :key="indexj"
-              >
+                :key="indexj">
                 {{ children.name }}
               </el-menu-item>
             </el-submenu>

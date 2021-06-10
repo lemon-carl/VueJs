@@ -22,7 +22,7 @@ export default {
   name: "SysBasic",
   data() {
     return {
-      activeName: "JobLevelMana",
+      activeName: "DeptMana",
     };
   },
   components: {

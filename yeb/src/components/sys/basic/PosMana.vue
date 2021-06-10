@@ -193,8 +193,8 @@ export default {
             message: "已取消删除",
           });
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style>
