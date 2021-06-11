@@ -10,7 +10,7 @@
             :filter-node-method="filterNode"
             ref="tree">
           <span class="custom-tree-node" slot-scope="{ node, data }" 
-          style="display: flex;justify-content: space-between;width: 100%;">
+            style="display: flex;justify-content: space-between;width: 100%;">
                 <span>{{ data.name }}</span>
                 <span>
                   <el-button type="primary" class="deptBtn" size="mini" 

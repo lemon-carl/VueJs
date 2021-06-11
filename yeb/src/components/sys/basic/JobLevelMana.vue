@@ -2,52 +2,21 @@
 <template>
   <div>
     <div>
-      <el-input
-        size="small"
-        v-model="jl.name"
-        placeholder="添加职称名称..."
-        prefix-icon="el-icon-plus"
-        style="width: 300px"
-      ></el-input>
-      <el-select
-        size="small"
-        v-model="jl.titleLevel"
-        placeholder="职称等级"
-        style="margin-left: 6px; margin-right: 6px"
-      >
-        <el-option
-          v-for="item in titleLevels"
-          :key="item"
-          :label="item"
-          :value="item"
-        >
-        </el-option>
+      <el-input size="small" v-model="jl.name" placeholder="添加职称名称..." prefix-icon="el-icon-plus"
+          style="width: 300px"></el-input>
+      <el-select size="small" v-model="jl.titleLevel" placeholder="职称等级" style="margin-left: 6px;margin-right: 6px">
+        <el-option v-for="item in titleLevels" :key="item" :label="item" :value="item"></el-option>
       </el-select>
-      <el-button
-        size="small"
-        type="primary"
-        icon="el-icon-plus"
-        @click="addJobLevel"
-        >添加</el-button
-      >
+      <el-button size="small" type="primary" icon="el-icon-plus" @click="addJobLevel">添加</el-button>
     </div>
     <div style="margin-top: 10px">
-      <el-table
-        :data="jls"
-        size="small"
-        stripe
-        border
-        style="width: 70%"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table :data="jls" size="small" stripe border style="width:70%" @selection-change="handleSelectionChange">
+
         <el-table-column type="selection" width="55"> </el-table-column>
         <el-table-column prop="id" label="编号" width="55"> </el-table-column>
-        <el-table-column prop="name" label="职称名称" width="150">
-        </el-table-column>
-        <el-table-column prop="titleLevel" label="职称等级" width="100">
-        </el-table-column>
-        <el-table-column prop="createDate" label="创建时间" width="120">
-        </el-table-column>
+        <el-table-column prop="name" label="职称名称" width="150"></el-table-column>
+        <el-table-column prop="titleLevel" label="职称等级" width="100"></el-table-column>
+        <el-table-column prop="createDate" label="创建时间" width="120"></el-table-column>
         <el-table-column prop="enabled" label="是否启用" width="80">
           <template slot-scope="scope">
             <el-tag v-if="scope.row.enabled" type="success">已启用</el-tag>
@@ -56,26 +25,13 @@
         </el-table-column>
         <el-table-column label="操作" width="150">
           <template slot-scope="scope">
-            <el-button size="mini" @click="showEditView(scope.row)"
-              >编辑</el-button
-            >
-            <el-button
-              size="mini"
-              type="danger"
-              @click="deleteHandle(scope.row)"
-              >删除</el-button
-            >
+            <el-button size="mini" @click="showEditView(scope.row)">编辑</el-button>
+            <el-button size="mini" type="danger" @click="deleteHandle(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
-      <el-button
-      size="small"
-      style="margin-top: 8px"
-      type="danger"
-      :disabled="this.multipleSelection.length == 0"
-      @click="deleteMany"
-      >批量删除</el-button
-    >
+      <el-button size="small" style="margin-top:8px" type="danger" :disabled="this.multipleSelection.length == 0"
+                @click="deleteMany">批量删除</el-button>
     </div>
     
     <el-dialog title="编辑职称" :visible.sync="dialogVisible" width="30%">
@@ -83,43 +39,23 @@
         <tr>
           <td><el-tag>职称名称</el-tag></td>
           <td>
-            <el-input
-              v-model="updateJl.name"
-              size="small"
-              style="margin-left: 6px"
-            ></el-input>
+            <el-input v-model="updateJl.name" size="small" style="margin-left: 6px"></el-input>
           </td>
         </tr>
         <tr>
           <td><el-tag>职称等级</el-tag></td>
           <td>
-            <el-select
-              size="small"
-              v-model="updateJl.titleLevel"
-              placeholder="职称等级"
-              style="margin-left: 6px; margin-right: 6px"
-            >
-              <el-option
-                v-for="item in titleLevels"
-                :key="item"
-                :label="item"
-                :value="item"
-              >
-              </el-option>
+            <el-select size="small" v-model="updateJl.titleLevel" placeholder="职称等级"
+                      style="margin-left: 6px; margin-right: 6px">
+              <el-option v-for="item in titleLevels" :key="item" :label="item" :value="item"></el-option>
             </el-select>
           </td>
         </tr>
         <tr>
           <td><el-tag>是否启用</el-tag></td>
           <td>
-            <el-switch
-              v-model="updateJl.enabled"
-              active-color="#13ce66"
-              inactive-color="#ff4949"
-              active-text="已启用"
-              inactive-text="未启用"
-            >
-            </el-switch>
+            <el-switch v-model="updateJl.enabled"  active-color="#13ce66" inactive-color="#ff4949"
+              active-text="已启用" inactive-text="未启用"></el-switch>
           </td>
         </tr>
       </table>
