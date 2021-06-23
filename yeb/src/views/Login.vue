@@ -61,8 +61,8 @@ export default {
            if (valid) {
                 this.loading = true;
                 this.postRequest('/login',this.loginForm).then(resp=>{
-                     this.loading = false;
                     if(resp){  
+                        this.loading = false;
                         // 存储用户 token
                         const tokenStr = resp.obj.tokenHead+resp.obj.token;
                         window.sessionStorage.setItem("tokenStr",tokenStr);
