@@ -24,7 +24,7 @@
                       :on-success="onSuccess"
                       :on-error="onError"
                       :disabled="importDataDisabled">
-                      <el-button type="success" :icon="importDataBtnIcon" @click="importEmpData" :disabled="importDataDisabled">
+                      <el-button type="success" :icon="importDataBtnIcon" :click="importEmpData" :disabled="importDataDisabled">
                           {{importDataBtnText}}
                       </el-button>  
                   </el-upload>

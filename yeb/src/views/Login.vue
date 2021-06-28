@@ -36,7 +36,7 @@ export default {
             //captchaUrl:'/verifyCode?time=' +　new Date(),
             captchaUrl:'/captcha?time=' +　new Date(),
             loginForm:{
-                username:'admin',
+                username:'lemon',
                 password:'123',
                 code:''
             },

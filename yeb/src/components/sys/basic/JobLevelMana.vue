@@ -97,6 +97,7 @@ export default {
           this.jls = resp;
           this.jl.name = "";
           this.jl.titleLevel = "";
+          window.sessionStorage.setItem('jobLevels',JSON.stringify(resp));
         }
       });
     },
