@@ -147,7 +147,7 @@
               </template>
             </el-table-column>
           </el-table>
-          <div style="display: flex;justify-content:flex-end">
+          <div style="display: flex;justify-content:flex-end;margin-top:5px">
             <el-pagination background 
               @current-change="currentChange"
               @size-change="sizeChange" 

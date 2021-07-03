@@ -145,6 +145,7 @@
                         this.deleteRequest('/system/basic/department/'+ data.id).then(resp=>{
                             if(resp){
                                 this.removeDepFromDeps(null, this.deps, data.id);
+                                window.sessionStorage.setItem('allDeps','');
                             }
                         });
                       }).catch(() => {

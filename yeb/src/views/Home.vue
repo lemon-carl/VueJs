@@ -37,7 +37,7 @@
             <el-breadcrumb-item>{{ this.$router.currentRoute.name }}</el-breadcrumb-item>
           </el-breadcrumb>
           <div class="homeWelcome" v-if="this.$router.currentRoute.path == '/home'" >
-            欢迎来到云E办！
+            欢迎来到LEMON-云E办！
           </div>
           <router-view class="homeRouter" />
         </el-main>
