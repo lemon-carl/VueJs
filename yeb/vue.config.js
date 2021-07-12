@@ -11,8 +11,12 @@ proxyObj['/'] = {
     pathRewrite: {
         '^/': ''
     }
-}
+};
 
+proxyObj['/ws'] = {
+    ws: true,
+    target: 'ws://localhost:8082'
+};
 
 module.exports = {
     devServer: {

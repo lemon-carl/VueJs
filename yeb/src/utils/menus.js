@@ -1,7 +1,7 @@
 import {getRequest} from './api';
 
 export const initMenu = (router,store)=>{
-    if(store.state.routes.length>0){
+    if(store.state.routes.length > 0){
         return;
     }
 
@@ -13,6 +13,8 @@ export const initMenu = (router,store)=>{
             router.addRoutes(fmtRoutes);
             // 将数据存入vuex
             store.commit('initRoutes', fmtRoutes);
+            // 连接WebSocket
+            store.dispatch('connect');
         }
     })
 }

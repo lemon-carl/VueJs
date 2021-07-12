@@ -33,11 +33,10 @@ export default {
     name: "Login",
     data(){
         return{
-            //captchaUrl:'/verifyCode?time=' +　new Date(),
             captchaUrl:'/captcha?time=' +　new Date(),
             loginForm:{
-                username:'lemon',
-                password:'123',
+                username:'',
+                password:'',
                 code:''
             },
             loading: false,
@@ -53,7 +52,6 @@ export default {
     },
     methods:{
         updateCaptcha(){
-           // this.captchaUrl = '/verifyCode?time=' + new Date();
             this.captchaUrl = '/captcha?time=' + new Date();
         },
         submitLogin(){
@@ -67,7 +65,6 @@ export default {
                         const tokenStr = resp.obj.tokenHead+resp.obj.token;
                         window.sessionStorage.setItem("tokenStr",tokenStr);
                         // 跳转首页
-                        // this.$router.replace("/home");
                         let path = this.$route.query.redirect;
                         this.$router.replace((path == '/' || path == undefined) ? '/home': path);    
                     }

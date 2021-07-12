@@ -3,16 +3,21 @@
     <el-container>
       <el-header class="homeHeader">
         <div class="title">LEMON-云办</div>
-        <el-dropdown class="userInfo" @command="commandHandler">
-          <span class="el-dropdown-link">
-            {{ user.name }} <i> <img :src="user.userFace" /></i>
-          </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="userinfo">个人中心</el-dropdown-item>
-            <el-dropdown-item command="setting">设置</el-dropdown-item>
-            <el-dropdown-item command="logout">注销登录</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+        <div>
+          <el-button type="text" icon="el-icon-bell" size="normal" style="margin-right: 8px;color:black" @click="goChat"></el-button>
+          <el-dropdown class="userInfo" @command="commandHandler">
+            <span class="el-dropdown-link"> {{ user.name }} 
+              <i> 
+                <img :src="user.userFace">
+              </i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="userinfo">个人中心</el-dropdown-item>
+              <el-dropdown-item command="setting">设置</el-dropdown-item>
+              <el-dropdown-item command="logout">注销登录</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
       </el-header>
       <el-container>
         <el-aside width="200px">
@@ -66,8 +71,7 @@ export default {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning",
-        })
-          .then(() => {
+        }).then(() => {
             // 注销登录
             this.postRequest("/logout");
 
@@ -78,8 +82,7 @@ export default {
 
             // 跳转页面
             this.$router.replace("/");
-          })
-          .catch(() => {
+          }).catch(() => {
             this.$message({
               type: "info",
               message: "已取消注销",
@@ -87,6 +90,9 @@ export default {
           });
       }
     },
+    goChat(){
+      this.$router.push('/chat');
+    }
   },
 };
 </script>
