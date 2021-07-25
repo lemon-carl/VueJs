@@ -24,7 +24,7 @@
                       :on-success="onSuccess"
                       :on-error="onError"
                       :disabled="importDataDisabled">
-                      <el-button type="success" :icon="importDataBtnIcon" :click="importEmpData" :disabled="importDataDisabled">
+                      <el-button type="success" :icon="importDataBtnIcon"  :disabled="importDataDisabled">
                           {{importDataBtnText}}
                       </el-button>  
                   </el-upload>
@@ -93,7 +93,7 @@
                   unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
                 </el-date-picker>
               </el-col>
-              <el-col :span="5" offset="4">
+              <el-col :span="5" :offset="4">
                 <el-button size="mini" @click="clearSearchValue">取消</el-button>
                 <el-button size="mini" icon="el-icon-search" type="primary"  @click="initEmps('advance')">搜索</el-button>
               </el-col>

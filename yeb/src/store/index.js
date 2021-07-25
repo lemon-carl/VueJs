@@ -22,6 +22,9 @@ const store = new Vuex.Store({
 
     },
     mutations:{
+        INIT_ADMIN(state,admin){
+            state.currentAdmin = admin;   
+        },
         initRoutes(state,data){
             state.routes = data;
         },
@@ -59,6 +62,7 @@ const store = new Vuex.Store({
     actions:{
         initData (context) {
             context.commit('INIT_DATA');
+            // keywords 搜索用户 ?keyWorks='+ state.filterKey
             getRequest('/chat/admin').then(resp=>{
                 if(resp){
                   context.commit('INIT_ADMINS',resp);

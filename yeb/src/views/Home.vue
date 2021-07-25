@@ -6,7 +6,7 @@
         <div>
           <el-button type="text" icon="el-icon-bell" size="normal" style="margin-right: 8px;color:black" @click="goChat"></el-button>
           <el-dropdown class="userInfo" @command="commandHandler">
-            <span class="el-dropdown-link"> {{ user.name }} 
+            <span class="el-dropdown-link"> {{user.name}} 
               <i> 
                 <img :src="user.userFace">
               </i>
@@ -56,13 +56,16 @@ export default {
   name: "Home",
   data() {
     return {
-      user: JSON.parse(window.sessionStorage.getItem("user")),
+      //user: JSON.parse(window.sessionStorage.getItem("user")),
     };
   },
   computed: {
     routes() {
       return this.$store.state.routes;
     },
+    user(){
+      return this.$store.state.currentAdmin;
+    }
   },
   methods: {
     commandHandler(command) {
@@ -88,6 +91,9 @@ export default {
               message: "已取消注销",
             });
           });
+      }
+      if(command == 'userinfo'){
+        this.$router.push('/userinfo');
       }
     },
     goChat(){

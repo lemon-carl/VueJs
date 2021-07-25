@@ -17,8 +17,9 @@
               <el-input type="password" auto-complete="false" v-model="loginForm.password" placeholder="请输入密码"></el-input>
           </el-form-item>
           <el-form-item prop="code">
-              <el-input type="text" auto-complete="false" v-model="loginForm.code" @keydown.enter.native="submitLogin"
-                        placeholder="点击图片更换验证码" style="width:250px; margin-right: 5px"></el-input>
+              <el-input type="text" style="width:250px; margin-right: 5px" placeholder="点击图片更换验证码"
+                        auto-complete="false" v-model="loginForm.code" >
+              </el-input>
               <img :src="captchaUrl" @click="updateCaptcha">
           </el-form-item>
           <el-checkbox v-model="checked" class="loginRemember">记住我</el-checkbox>
@@ -56,38 +57,25 @@ export default {
         },
         submitLogin(){
            this.$refs.loginForm.validate((valid) => {
-           if (valid) {
-                this.loading = true;
-                this.postRequest('/login',this.loginForm).then(resp=>{
-                    if(resp){  
+                if (valid) {
+                    this.loading = true;
+                    this.postRequest('/login',this.loginForm).then(resp=>{
                         this.loading = false;
-                        // 存储用户 token
-                        const tokenStr = resp.obj.tokenHead+resp.obj.token;
-                        window.sessionStorage.setItem("tokenStr",tokenStr);
-                        // 跳转首页
-                        let path = this.$route.query.redirect;
-                        this.$router.replace((path == '/' || path == undefined) ? '/home': path);    
-                    }
-        
-                })
-                    // this.loading = true;
-                    //     this.postRequest('/doLogin', this.loginForm).then(resp => {
-                    //         this.loading = false;
-                    //         if (resp) {
-                    //             //this.$store.commit('INIT_CURRENTHR', resp.obj);
-                    //              const user = resp.obj.toKenHead+resp.obj.token;
-                    //             window.sessionStorage.setItem("user", user);
-                    //            // let path = this.$route.query.redirect;
-                    //             //this.$router.replace((path == '/' || path == undefined) ? '/home' : path);
-                    //              this.$router.replace("/home");
-                    //         }else{
-                    //             this.vcUrl = '/verifyCode?time='+new Date();
-                    //         }
-                    //     })
-            } else {
-                this.$message.error('请输入所有字段！');
-                return false;
-            }
+                        if(resp){  
+                            // 存储用户 token
+                            const tokenStr = resp.obj.tokenHead + resp.obj.token;
+                            window.sessionStorage.setItem("tokenStr",tokenStr);
+                            // 跳转首页
+                            let path = this.$route.query.redirect;
+                            this.$router.replace((path == '/' || path == undefined) ? '/home': path);    
+                        } else{
+                            this.captchaUrl = '/captcha?time=' + new Date();
+                        }
+                    });
+                } else {
+                    this.$message.error('请输入所有字段！');
+                    return false;
+                }
             });
         }
     }
