@@ -7,8 +7,16 @@
             </div>
             <div>
                 <div style="display: flex;justify-content: center;">
-                  <img title="点击修改用户头像" style="width: 100px;height: 100px;border-radius: 50px;" 
-                        :src="admin.userFace" alt="" >
+                    <el-upload
+                        action="/admin/userface"
+                        :headers="headers"
+                        :data="admin"
+                        :show-file-list="false"
+                        :on-success="onSuccess">
+                        <img title="点击修改用户头像" :src="admin.userFace"
+                             style="width: 100px;height: 100px;border-radius: 50px;" >
+                    </el-upload>
+                  
                 </div>  
             </div>  
             <div>手机号码：
@@ -130,6 +138,9 @@
             };  
 
             return {
+                headers:{
+                    Authorization: window.sessionStorage.getItem('tokenStr')
+                },
                 admin: null,
                 admin2: null,
                 allRoles: [],
@@ -257,6 +268,9 @@
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
+            },
+            onSuccess(){
+                this.initAdmin();
             }
 
 
